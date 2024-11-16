@@ -102,15 +102,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         _getRequestLocationPermissionButton(context),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         _getRequestNotificationPermissionButton(context),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         _getStartLocationPermissionButton(context),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         _getStopLocationPermissionButton(context),
                         const SizedBox(
