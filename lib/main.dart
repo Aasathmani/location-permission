@@ -79,9 +79,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(child: _getRequestLocationPermissionButton(context)),
-                            const SizedBox(width: 30,),
-                            Expanded(child: _getRequestNotificationPermissionButton(context)),
+                            Expanded(
+                                child: _getRequestLocationPermissionButton(
+                                    context)),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            Expanded(
+                                child: _getRequestNotificationPermissionButton(
+                                    context)),
                           ],
                         ),
                         const SizedBox(
@@ -90,9 +96,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(child: _getStartLocationPermissionButton(context)),
-                            const SizedBox(width: 30,),
-                            Expanded(child: _getStopLocationPermissionButton(context)),
+                            Expanded(
+                                child:
+                                    _getStartLocationPermissionButton(context)),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            Expanded(
+                                child:
+                                    _getStopLocationPermissionButton(context)),
                           ],
                         )
                       ],
@@ -168,7 +180,32 @@ class _MyHomePageState extends State<MyHomePage> {
       color: Colors.green,
       labelColor: Colors.white,
       onTap: () {
-        _startLocationUpdates();
+        _confirmationAlert(context);
+      },
+    );
+  }
+
+  Future _confirmationAlert(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: const Text("Start location Confirmation"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("No".toUpperCase()),
+            ),
+            TextButton(
+              onPressed: () {
+                _startLocationUpdates();
+                Navigator.pop(context);
+              },
+              child: Text("Yes".toUpperCase()),
+            ),
+          ],
+        );
       },
     );
   }
@@ -179,8 +216,33 @@ class _MyHomePageState extends State<MyHomePage> {
       color: Colors.red,
       labelColor: Colors.white,
       onTap: () {
-        _stopLocationUpdates();
-        _saveLocationRequests();
+        _confirmationStopAlert(context);
+      },
+    );
+  }
+
+  Future _confirmationStopAlert(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: const Text("Are you sure want to stop the location"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("No".toUpperCase()),
+            ),
+            TextButton(
+              onPressed: () {
+                _stopLocationUpdates();
+                _saveLocationRequests();
+                Navigator.pop(context);
+              },
+              child: Text("Yes".toUpperCase()),
+            ),
+          ],
+        );
       },
     );
   }
@@ -195,8 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(top: 10),
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:
-                    isWideScreen ? 2 : 1,
+                crossAxisCount: isWideScreen ? 2 : 1,
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 30,
                 childAspectRatio: 4,
